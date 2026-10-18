@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087f66">
+  <meta name="description" content="DREQ - La plateforme de révision des examens médicaux.">
+  <title>DREQ — Réussis tes examens médicaux</title>
+  <style>
+    :root {
+      --green: #087f66;
+      --dark: #12352d;
+      --mint: #e9f7f1;
+      --text: #60736d;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fcfa;
+      color: var(--dark);
+    }
+    header {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      background: white;
+      border-bottom: 1px solid #e4eee8;
+    }
+    .logo { font-size: 28px; font-weight: 800; color: var(--green); }
+    .logo span { color: var(--dark); }
+    nav { display: flex; align-items: center; gap: 24px; }
+    nav a { color: var(--dark); text-decoration: none; font-size: 14px; }
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 12px;
+      background: var(--green);
+      color: white;
+      padding: 14px 21px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .hero {
+      max-width: 1160px;
+      margin: auto;
+      padding: 82px 7% 64px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 45px;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--mint);
+      color: var(--green);
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    h1 {
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin: 24px 0;
+    }
+    h1 span { color: var(--green); }
+    .intro { color: var(--text); font-size: 17px; line-height: 1.8; max-width: 540px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn-light {
+      background: white;
+      color: var(--green);
+      border: 1px solid #d5e7df;
+    }
+    .study-card {
+      background: linear-gradient(145deg, #087f66, #0ba887);
+      color: white;
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 22px 50px #087f6620;
+    }
+    .study-card h2 { font-size: 25px; margin-top: 0; }
+    .stat {
+      background: #ffffff20;
+      padding: 17px;
+      border-radius: 14px;
+      margin-top: 13px;
+    }
+    .stat strong { display: block; font-size: 21px; margin-bottom: 5px; }
+    .stat small { color: #e0fff4; }
+    .section { padding: 55px 7%; text-align: center; background: white; }
+    .section h2 { font-size: 32px; margin-bottom: 12px; }
+    .section > p { color: var(--text); line-height: 1.7; }
+    .features {
+      max-width: 1100px;
+      margin: 35px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left;
+    }
+    .feature {
+      border: 1px solid #e3eee8;
+      border-radius: 18px;
+      padding: 25px;
+      background: #fbfefc;
+    }
+    .feature .icon { font-size: 28px; }
+    .feature h3 { margin-bottom: 9px; }
+    .feature p { color: var(--text); line-height: 1.7; font-size: 14px; }
+    footer { padding: 25px; text-align: center; color: var(--text); font-size: 13px; }
+    @media (max-width: 720px) {
+      header { padding: 0 5%; height: 68px; }
+      .logo { font-size: 24px; }
+      nav { gap: 10px; }
+      nav a { display: none; }
+      nav .btn { padding: 11px 13px; font-size: 13px; }
+      .hero { grid-template-columns: 1fr; padding: 55px 6% 45px; gap: 30px; }
+      h1 { letter-spacing: -1px; }
+      .features { grid-template-columns: 1fr; }
+      .section { padding: 45px 6%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="#" style="text-decoration:none">DR<span>EQ</span></a>
+    <nav>
+      <a href="#features">Fonctionnalités</a>
+      <a href="#about">À propos</a>
+      <a class="btn" href="#features">Commencer</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="tag">✦ La révision médicale nouvelle génération</span>
+        <h1>Prépare tes examens médicaux <span>intelligemment.</span></h1>
+        <p class="intro">
+          Entraîne-toi avec des QCM, révise tes cours et mesure ta progression.
+          Tout ce qu'il te faut pour avancer avec confiance.
+        </p>
+        <div class="actions">
+          <a class="btn" href="#features">Commencer à réviser →</a>
+          <a class="btn btn-light" href="#about">Découvrir DREQ</a>
+        </div>
+      </div>
+      <div class="study-card">
+        <h2>Ton espace de révision</h2>
+        <p>Organise tes révisions, un chapitre à la fois.</p>
+        <div class="stat">
+          <strong>QCM interactifs</strong>
+          <small>Teste tes connaissances à ton rythme</small>
+        </div>
+        <div class="stat">
+          <strong>Correction immédiate</strong>
+          <small>Comprends tes erreurs et progresse</small>
+        </div>
+        <div class="stat">
+          <strong>Mode examen</strong>
+          <small>Entraîne-toi avec un chronomètre</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <span class="tag">LES OUTILS DREQ</span>
+      <h2>Révise avec méthode</h2>
+      <p>Des outils pensés pour accompagner les étudiants en médecine.</p>
+      <div class="features">
+        <article class="feature">
+          <div class="icon">📚</div>
+          <h3>QCM par matière</h3>
+          <p>Retrouve tes questions par module, chapitre et année d'étude.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">⏱️</div>
+          <h3>Mode examen</h3>
+          <p>Prépare-toi dans les conditions d'un véritable examen.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">📈</div>
+          <h3>Suivi des résultats</h3>
+          <p>Visualise tes scores et identifie les notions à retravailler.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about" style="background:#e9f7f1">
+      <h2>Ton objectif, notre mission.</h2>
+      <p>DREQ t'accompagne dans tes révisions médicales, étape par étape.</p>
+      <a class="btn" href="#features">Explorer les fonctionnalités</a>
+    </section>
+  </main>
+
+  <footer>© 2026 DREQ — Plateforme de révision médicale.</footer>
+</body>
+</html>
