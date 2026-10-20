@@ -180,7 +180,7 @@ async function loadSession() {
     .single();
 
   if (error || !profile) {
-    message("studentMsg", "Impossible de charger ton profil. Vérifie la configuration Supabase.");
+    message("studentMsg", "Erreur profil : " + (error ? error.message : "Aucun profil trouvé pour cet utilisateur."));
     return;
   }
 
