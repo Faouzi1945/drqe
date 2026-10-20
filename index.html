@@ -4,27 +4,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DREQ — Espace étudiant</title>
+<title>DREQ — Révision médicale</title>
 <style>
-:root{--g:#087f66;--bg:#f4faf7;--txt:#183b32}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--txt)}
-header{background:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e0eee7}
-.logo{font-size:27px;font-weight:800;color:var(--g)}
-main{max-width:560px;margin:45px auto;padding:0 16px}
-.card{background:white;border:1px solid #e2eee8;border-radius:18px;padding:25px;box-shadow:0 8px 30px #12352d0b}
-h1{font-size:27px;margin-top:0}
-p{line-height:1.6;color:#61736c}
-label{display:block;margin:15px 0 7px;font-weight:bold;font-size:14px}
-input{width:100%;padding:13px;border:1px solid #d6e5dd;border-radius:9px;font-size:16px}
-button{border:0;border-radius:10px;padding:13px 17px;background:var(--g);color:white;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.5}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-.secondary{background:#e9f7f1;color:var(--g)}
-.msg{padding:12px;border-radius:9px;background:#edf8f2;margin-top:15px;white-space:pre-wrap}
-.hidden{display:none!important}
-.student{padding:14px 0;border-bottom:1px solid #e5eee9;overflow-wrap:anywhere}
-small{color:#61736c}
+:root {
+  --green:#087f66;
+  --dark:#183b32;
+  --bg:#f4faf7;
+  --line:#e0eee7;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+}
+header {
+  background:white;
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+}
+.logo { font-size:27px;font-weight:800;color:var(--green); }
+main { max-width:900px;margin:35px auto;padding:0 16px 40px; }
+.card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:20px;
+  box-shadow:0 8px 25px #12352d08;
+}
+h1 { font-size:27px;margin-top:0; }
+h2 { font-size:20px; }
+p { color:#61736c;line-height:1.6; }
+label { display:block;margin:15px 0 7px;font-weight:bold;font-size:14px; }
+input {
+  width:100%;padding:13px;border:1px solid #d6e5dd;
+  border-radius:9px;font-size:16px;
+}
+button {
+  border:0;border-radius:10px;padding:12px 16px;
+  background:var(--green);color:white;font-weight:bold;
+  cursor:pointer;
+}
+button:disabled { opacity:.5;cursor:wait; }
+.secondary { background:#e9f7f1;color:var(--green); }
+.actions { display:flex;gap:9px;flex-wrap:wrap;margin-top:18px; }
+.hidden { display:none!important; }
+.msg {
+  padding:12px;border-radius:9px;background:#edf8f2;
+  margin-top:15px;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:14px;margin-top:20px;
+}
+.semester {
+  background:white;color:var(--dark);border:1px solid var(--line);
+  border-radius:15px;padding:22px 14px;text-align:left;min-height:120px;
+}
+.semester:hover { border-color:var(--green); }
+.semester strong { display:block;font-size:23px;color:var(--green);margin-bottom:9px; }
+.semester span { font-size:13px;color:#61736c;font-weight:normal; }
+.student { padding:14px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere; }
+small { color:#61736c; }
+.back { margin-bottom:18px; }
+@media(max-width:500px) {
+  main { margin-top:20px; }
+  .card { padding:18px; }
+}
 </style>
 </head>
 <body>
@@ -36,7 +87,7 @@ small{color:#61736c}
 <main>
   <section class="card" id="auth">
     <h1>Bienvenue sur DREQ</h1>
-    <p>Connecte-toi à ton espace de révision médicale.</p>
+    <p>Ton espace de révision médicale.</p>
 
     <div id="signupFields" class="hidden">
       <label for="name">Nom complet</label>
@@ -47,24 +98,63 @@ small{color:#61736c}
     <input id="email" type="email" autocomplete="email" placeholder="nom@exemple.com">
 
     <label for="password">Mot de passe</label>
-    <input id="password" type="password" autocomplete="current-password" minlength="8" placeholder="8 caractères minimum">
+    <input id="password" type="password" autocomplete="current-password"
+           minlength="8" placeholder="8 caractères minimum">
 
     <div class="actions">
       <button id="loginBtn">Se connecter</button>
       <button id="signupBtn" class="secondary">Créer un compte</button>
+      <button id="createBtn" class="hidden">Créer mon compte</button>
+      <button id="backBtn" class="secondary hidden">Retour à la connexion</button>
     </div>
     <div id="authMsg" class="msg hidden" role="status"></div>
   </section>
 
   <section class="card hidden" id="studentArea">
-    <h1 id="welcome">Mon espace DREQ</h1>
+    <h1 id="welcome">Bienvenue sur DREQ</h1>
     <div id="studentMsg" class="msg">Vérification de ton accès...</div>
-    <div id="adminArea" class="hidden">
+
+    <section id="learningArea" class="hidden">
+      <h2>Mon espace de révision</h2>
+      <p>Choisis ton semestre pour accéder aux matières et aux cours.</p>
+
+      <div class="grid" id="semesterGrid">
+        <button class="semester" data-semester="S1">
+          <strong>S1</strong><span>Semestre 1 · Année 1</span>
+        </button>
+        <button class="semester" data-semester="S2">
+          <strong>S2</strong><span>Semestre 2 · Année 1</span>
+        </button>
+        <button class="semester" data-semester="S3">
+          <strong>S3</strong><span>Semestre 3 · Année 2</span>
+        </button>
+        <button class="semester" data-semester="S4">
+          <strong>S4</strong><span>Semestre 4 · Année 2</span>
+        </button>
+      </div>
+
+      <section id="semesterDetails" class="hidden" style="margin-top:25px">
+        <button id="backSemesters" class="secondary back">← Tous les semestres</button>
+        <h2 id="semesterTitle">Semestre</h2>
+        <p id="semesterDescription">
+          Les matières et les cours seront ajoutés par l'administration.
+        </p>
+        <div class="msg">
+          Les contenus de ce semestre sont en préparation.
+          Reviens bientôt pour retrouver tes matières et tes QCM.
+        </div>
+      </section>
+    </section>
+
+    <section id="adminArea" class="hidden">
       <h2>Administration</h2>
-      <p>Active ou désactive l'accès des étudiants après vérification de leur paiement en dehors de l'application.</p>
+      <p>
+        Active ou désactive l'accès des étudiants après vérification
+        de leur paiement en dehors de l'application.
+      </p>
       <button id="refreshStudents" class="secondary">Actualiser les comptes</button>
       <div id="students"></div>
-    </div>
+    </section>
   </section>
 </main>
 
@@ -72,49 +162,34 @@ small{color:#61736c}
 <script>
 const SUPABASE_URL = "https://yzifxfasvhjgskjsqcdx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_gg77GJP7dCZQJKYjpJfkNg_50YOqD6H";
-
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const $ = id => document.getElementById(id);
 let currentProfile = null;
+let loadingSession = false;
 
 function message(id, text) {
   $(id).textContent = text;
   $(id).classList.remove("hidden");
 }
-function hide(id) { $(id).classList.add("hidden"); }
-
-function showSignup(show) {
-  $("signupFields").classList.toggle("hidden", !show);
-  $("loginBtn").classList.toggle("hidden", show);
-  $("signupBtn").classList.toggle("hidden", show);
-  if (show) {
-    const back = document.createElement("button");
-    back.textContent = "Retour à la connexion";
-    back.className = "secondary";
-    back.id = "backBtn";
-    back.onclick = () => {
-      back.remove();
-      showSignup(false);
-    };
-    if (!$("backBtn")) $("auth").querySelector(".actions").appendChild(back);
-  } else {
-    $("backBtn")?.remove();
-  }
+function hide(id) {
+  $(id).classList.add("hidden");
+}
+function show(id) {
+  $(id).classList.remove("hidden");
 }
 
-$("signupBtn").onclick = async () => {
-  showSignup(true);
-  $("signupBtn").classList.add("hidden");
-  $("loginBtn").classList.add("hidden");
+function setSignupMode(enabled) {
+  $("signupFields").classList.toggle("hidden", !enabled);
+  $("loginBtn").classList.toggle("hidden", enabled);
+  $("signupBtn").classList.toggle("hidden", enabled);
+  $("createBtn").classList.toggle("hidden", !enabled);
+  $("backBtn").classList.toggle("hidden", !enabled);
+  hide("authMsg");
+}
 
-  if ($("createBtn")) return;
-  const btn = document.createElement("button");
-  btn.id = "createBtn";
-  btn.textContent = "Créer mon compte";
-  btn.onclick = createAccount;
-  $("auth").querySelector(".actions").prepend(btn);
-};
+$("signupBtn").onclick = () => setSignupMode(true);
+$("backBtn").onclick = () => setSignupMode(false);
 
 async function createAccount() {
   const name = $("name").value.trim();
@@ -129,29 +204,36 @@ async function createAccount() {
   $("createBtn").disabled = true;
   try {
     const { data, error } = await db.auth.signUp({
-      email, password, options: { data: { full_name: name } }
+      email,
+      password,
+      options: { data: { full_name: name } }
     });
     if (error) throw error;
 
     if (data.session) {
       await loadSession();
     } else {
-      message("authMsg", "Compte créé. Vérifie ta boîte e-mail si une confirmation est demandée, puis connecte-toi. Ton accès sera en attente de validation par l'administration.");
+      message("authMsg",
+        "Compte créé. Connecte-toi si aucune confirmation e-mail n'est demandée. " +
+        "Ton accès restera en attente jusqu'à sa validation par l'administration.");
     }
   } catch (e) {
-    message("authMsg", "Erreur : " + e.message);
+    message("authMsg", "Création impossible : " + e.message);
   } finally {
     $("createBtn").disabled = false;
   }
 }
+$("createBtn").onclick = createAccount;
 
 $("loginBtn").onclick = async () => {
   const email = $("email").value.trim();
   const password = $("password").value;
+
   if (!email || !password) {
     message("authMsg", "Entre ton e-mail et ton mot de passe.");
     return;
   }
+
   $("loginBtn").disabled = true;
   try {
     const { error } = await db.auth.signInWithPassword({ email, password });
@@ -165,40 +247,63 @@ $("loginBtn").onclick = async () => {
 };
 
 async function loadSession() {
-  const { data: { user } } = await db.auth.getUser();
-  if (!user) return;
+  if (loadingSession) return;
+  loadingSession = true;
 
-  hide("auth");
-  $("studentArea").classList.remove("hidden");
-  $("logout").classList.remove("hidden");
-  $("welcome").textContent = "Bienvenue sur DREQ";
+  try {
+    const { data: { user }, error: userError } = await db.auth.getUser();
+    if (userError || !user) {
+      currentProfile = null;
+      show("auth");
+      hide("studentArea");
+      hide("logout");
+      return;
+    }
 
-  const { data: profile, error } = await db
-    .from("profiles")
-    .select("id,email,role,access_active")
-    .eq("id", user.id)
-    .single();
+    hide("auth");
+    show("studentArea");
+    show("logout");
+    $("welcome").textContent = "Bienvenue sur DREQ";
 
-  if (error || !profile) {
-    message("studentMsg", "Erreur profil : " + (error ? error.message : "Aucun profil trouvé pour cet utilisateur."));
-    return;
-  }
+    const { data: profile, error } = await db
+      .from("profiles")
+      .select("id,email,role,access_active")
+      .eq("id", user.id)
+      .single();
 
-  currentProfile = profile;
+    if (error || !profile) {
+      message("studentMsg", "Erreur profil : " +
+        (error ? error.message : "Aucun profil trouvé pour cet utilisateur."));
+      hide("learningArea");
+      hide("adminArea");
+      return;
+    }
 
-  if (profile.role === "admin") {
-    $("adminArea").classList.remove("hidden");
-    message("studentMsg", "Connecté en tant qu'administrateur.");
-    await loadStudents();
-  } else if (profile.access_active) {
-    message("studentMsg", "Ton accès est activé. L'espace de révision sera disponible au fur et à mesure de l'installation des fonctionnalités.");
-  } else {
-    message("studentMsg", "Ton compte est créé, mais ton accès est en attente de validation. Contacte l'administration DREQ après l'envoi de ton reçu par WhatsApp.");
+    currentProfile = profile;
+    hide("learningArea");
+    hide("adminArea");
+    hide("semesterDetails");
+
+    if (profile.role === "admin") {
+      message("studentMsg", "Connecté en tant qu'administrateur.");
+      show("adminArea");
+      await loadStudents();
+    } else if (profile.access_active) {
+      message("studentMsg", "Ton accès est activé. Bienvenue dans ton espace de révision !");
+      show("learningArea");
+    } else {
+      message("studentMsg",
+        "Ton compte est créé, mais ton accès est en attente de validation. " +
+        "Contacte l'administration DREQ après l'envoi de ton reçu par WhatsApp.");
+    }
+  } finally {
+    loadingSession = false;
   }
 }
 
 async function loadStudents() {
   $("students").textContent = "Chargement...";
+
   const { data, error } = await db
     .from("profiles")
     .select("id,email,role,access_active")
@@ -210,21 +315,30 @@ async function loadStudents() {
   }
 
   $("students").replaceChildren();
-  data.forEach(profile => {
-    if (profile.role === "admin") return;
 
+  const students = (data || []).filter(profile => profile.role !== "admin");
+  if (students.length === 0) {
+    $("students").textContent = "Aucun compte étudiant pour le moment.";
+    return;
+  }
+
+  students.forEach(profile => {
     const item = document.createElement("div");
     item.className = "student";
 
     const title = document.createElement("strong");
     title.textContent = profile.email || "Étudiant";
+
     const status = document.createElement("p");
     status.textContent = profile.access_active ? "Accès activé" : "En attente";
+
     const btn = document.createElement("button");
     btn.textContent = profile.access_active ? "Désactiver l'accès" : "Activer l'accès";
     btn.className = profile.access_active ? "secondary" : "";
+
     btn.onclick = async () => {
       btn.disabled = true;
+
       const { error: updateError } = await db
         .from("profiles")
         .update({ access_active: !profile.access_active })
@@ -245,14 +359,31 @@ async function loadStudents() {
 
 $("refreshStudents").onclick = loadStudents;
 
+document.querySelectorAll("[data-semester]").forEach(btn => {
+  btn.onclick = () => {
+    const semester = btn.dataset.semester;
+    $("semesterTitle").textContent = "Semestre " + semester.slice(1);
+    $("semesterDescription").textContent =
+      semester + " · Les matières et les cours seront ajoutés par l'administration.";
+    hide("semesterGrid");
+    show("semesterDetails");
+  };
+});
+
+$("backSemesters").onclick = () => {
+  hide("semesterDetails");
+  show("semesterGrid");
+};
+
 $("logout").onclick = async () => {
   await db.auth.signOut();
+  currentProfile = null;
   location.reload();
 };
 
 db.auth.onAuthStateChange((event) => {
   if (event === "SIGNED_IN") {
-    setTimeout(loadSession, 0);
+    setTimeout(() => loadSession(), 0);
   }
 });
 
