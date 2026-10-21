@@ -373,10 +373,13 @@
     $("retryButton").addEventListener("click", loadApp);
 
     db.auth.onAuthStateChange(() => {
-      setTimeout(loadApp, 0);
+      setTimeout(() => {
+        loadApp();
+      }, 0);
     });
 
     loadApp();
   </script>
 </body>
 </html>
+
