@@ -84,15 +84,22 @@
         <button id="logoutButton" class="secondary" type="button">
           Se déconnecter
         </button>
-      </div>
-
+      </div>   
       <div id="studentArea" class="card" hidden>
         <h2>Espace étudiant</h2>
-        <p id="studentMessage" class="muted"></p>
-        <p class="muted">
-          Les cours, QCM et outils de révision seront ajoutés
-          progressivement à cette version.
-        </p>
+        <p class="muted">Bienvenue dans ton espace de révision en médecine.</p>
+
+        <label for="semesterSelect"><strong>Choisir le semestre</strong></label>
+        <select id="semesterSelect">
+          <option value="S1">Semestre 1</option>
+          <option value="S2">Semestre 2</option>
+        </select>
+
+        <h3 id="semesterTitle">Semestre 1</h3>
+        <p class="muted">Tes matières seront organisées ici.</p>
+
+        <div id="moduleList"></div>
+        <p id="moduleMessage" class="muted"></p>
       </div>
 
       <div id="adminArea" class="card" hidden>
@@ -236,6 +243,52 @@
           "Contacte l'administration si ton accès devrait déjà être activé.";
       }
     }
+
+    const subjectsBySemester = {
+      S1: [
+        "Biologie cellulaire",
+        "Biochimie",
+        "Chimie",
+        "Embryologie",
+        "Histologie",
+        "Anatomie"
+      ],
+      S2: [
+        "Biologie cellulaire",
+        "Biochimie",
+        "Génétique",
+        "Histologie",
+        "Anatomie",
+        "Physiologie"
+      ]
+    };
+
+    function renderSubjects() {
+      const semester = $("semesterSelect").value;
+      $("semesterTitle").textContent =
+        semester === "S1" ? "Semestre 1" : "Semestre 2";
+
+      const list = $("moduleList");
+      list.replaceChildren();
+
+      subjectsBySemester[semester].forEach(subject => {
+        const item = document.createElement("div");
+        item.className = "student";
+
+        const title = document.createElement("strong");
+        title.textContent = subject;
+
+        const info = document.createElement("p");
+        info.className = "muted";
+        info.textContent = "Les cours et QCM seront ajoutés progressivement.";
+
+        item.append(title, info);
+        list.append(item);
+      });
+    }
+
+    $("semesterSelect").addEventListener("change", renderSubjects);
+    renderSubjects();
 
     async function loadStudents() {
       const list = $("studentList");
